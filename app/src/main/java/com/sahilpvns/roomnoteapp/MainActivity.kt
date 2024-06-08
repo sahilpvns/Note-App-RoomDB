@@ -6,8 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sahilpvns.roomnoteapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() , NoteAdapter.OnItemClickListener {
@@ -20,18 +18,28 @@ class MainActivity : AppCompatActivity() , NoteAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        initLayoutManager()
+        initViewModel()
+        btnFab()
 
-        binding?.rvItem?.layoutManager = LinearLayoutManager(this)
-        binding?.rvItem?.adapter = mAdapter
+    }
 
-        noteViewModel.allNotes.observe(this) {
-            mAdapter.setNotes(it)
-        }
-
+    private fun btnFab() {
         binding?.fab?.setOnClickListener {
             val intent = Intent(this, AddEditActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun initViewModel() {
+        noteViewModel.allNotes.observe(this) {
+            mAdapter.setNotes(it)
+        }
+    }
+
+    private fun initLayoutManager() {
+        binding?.rvItem?.layoutManager = LinearLayoutManager(this)
+        binding?.rvItem?.adapter = mAdapter
     }
 
     override fun onItemClick(note: Note) {
