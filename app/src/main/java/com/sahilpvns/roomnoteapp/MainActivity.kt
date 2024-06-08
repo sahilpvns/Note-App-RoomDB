@@ -2,6 +2,9 @@ package com.sahilpvns.roomnoteapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,6 +37,11 @@ class MainActivity : AppCompatActivity() , NoteAdapter.OnItemClickListener {
     private fun initViewModel() {
         noteViewModel.allNotes.observe(this) {
             mAdapter.setNotes(it)
+            if (it.isEmpty()) {
+                binding?.ivNoData?.visibility = View.VISIBLE
+            } else {
+                binding?.ivNoData?.visibility = View.GONE
+            }
         }
     }
 

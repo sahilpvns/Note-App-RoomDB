@@ -34,8 +34,8 @@
             android:padding="@dimen/_10sdp"
             android:textSize="@dimen/_10sdp"
             android:inputType="textMultiLine"
-            tools:text="Sahil"
             android:gravity="top"
+            android:hint="@string/content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
