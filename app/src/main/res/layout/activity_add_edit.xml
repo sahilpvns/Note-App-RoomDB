@@ -1,34 +1,49 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_shape"
+            android:inputType="text"
             android:hint="@string/title"
-            android:inputType="text" />
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_100sdp"
             android:hint="@string/content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/edit_shape"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_10sdp"
             android:inputType="textMultiLine"
-            android:minHeight="200dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etTitle" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_32sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etContent"
             android:text="@string/save" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

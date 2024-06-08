@@ -1,13 +1,13 @@
 package com.sahilpvns.roomnoteapp
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
+import android.text.TextUtils
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.sahilpvns.roomnoteapp.databinding.ActivityAddEditBinding
 
@@ -17,6 +17,7 @@ class AddEditActivity : AppCompatActivity() {
     private var noteId: Int? = null
     private var binding: ActivityAddEditBinding? = null
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_add_edit)
@@ -33,7 +34,18 @@ class AddEditActivity : AppCompatActivity() {
             val title = binding?.etTitle?.text.toString()
             val content = binding?.etContent?.text.toString()
 
-            if (title.isNotEmpty() && content.isNotEmpty()) {
+            val gd = GradientDrawable()
+            gd.setColor(Color.WHITE)
+            gd.cornerRadius = 10f
+            gd.setStroke(3, Color.RED)
+
+            if (TextUtils.isEmpty(title)) {
+                binding?.etTitle?.setBackgroundDrawable(gd)
+                binding?.etContent?.background = getDrawable(R.drawable.edit_shape)
+            } else if (TextUtils.isEmpty(content)) {
+                binding?.etContent?.setBackgroundDrawable(gd)
+                binding?.etTitle?.background = getDrawable(R.drawable.edit_shape)
+            } else if (title.isNotEmpty() && content.isNotEmpty()) {
                 val note = Note(id = noteId ?: 0, title = title, content = content)
                 if (noteId == null) {
                     noteViewModel.insert(note)
