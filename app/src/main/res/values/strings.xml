@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Room Note App</string>
+    <string name="app_name">Note App</string>
     <string name="content">Content</string>
     <string name="title">Title</string>
     <string name="save">Save</string>
