@@ -21,12 +21,6 @@ class NoteAdapter(private var notes: List<Note>, private val mListener: OnItemCl
         return notes.size
     }
 
-    fun setNotes(notes: List<Note>) {
-        this.notes = notes
-        notifyDataSetChanged()
-    }
-
-
     class NoteHolder(private var binding: NoteItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(currentNote: Note, mListener: OnItemClickListener) {
             binding.tvTitle.text = currentNote.title

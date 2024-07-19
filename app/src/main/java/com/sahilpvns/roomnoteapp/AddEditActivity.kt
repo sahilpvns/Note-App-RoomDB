@@ -1,6 +1,5 @@
 package com.sahilpvns.roomnoteapp
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -19,7 +18,7 @@ class AddEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_add_edit)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_edit)
 
 
         val intent = intent
@@ -38,20 +37,26 @@ class AddEditActivity : AppCompatActivity() {
             gd.cornerRadius = 10f
             gd.setStroke(3, Color.RED)
 
-            if (TextUtils.isEmpty(title)) {
-                binding?.etTitle?.background = gd
-                binding?.etContent?.background = ContextCompat.getDrawable(this, R.drawable.edit_shape)
-            } else if (TextUtils.isEmpty(content)) {
-                binding?.etContent?.background = gd
-                binding?.etTitle?.background = ContextCompat.getDrawable(this, R.drawable.edit_shape)
-            } else if (title.isNotEmpty() && content.isNotEmpty()) {
-                val note = Note(id = noteId ?: 0, title = title, content = content)
-                if (noteId == null) {
-                    noteViewModel.insert(note)
-                } else {
-                    noteViewModel.update(note)
+            when {
+                TextUtils.isEmpty(title) -> {
+                    binding?.etTitle?.background = gd
+                    binding?.etContent?.background = ContextCompat.getDrawable(this, R.drawable.edit_shape)
                 }
-                finish()
+
+                TextUtils.isEmpty(content) -> {
+                    binding?.etContent?.background = gd
+                    binding?.etTitle?.background = ContextCompat.getDrawable(this, R.drawable.edit_shape)
+                }
+
+                title.isNotEmpty() && content.isNotEmpty() -> {
+                    val note = Note(noteId ?: 0, title, content)
+                    if (noteId == null) {
+                        noteViewModel.insert(note)
+                    } else {
+                        noteViewModel.update(note)
+                    }
+                    finish()
+                }
             }
         }
     }

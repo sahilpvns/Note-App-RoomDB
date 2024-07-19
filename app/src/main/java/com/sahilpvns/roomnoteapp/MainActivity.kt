@@ -2,9 +2,7 @@ package com.sahilpvns.roomnoteapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -14,14 +12,12 @@ import com.sahilpvns.roomnoteapp.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() , NoteAdapter.OnItemClickListener {
 
     private val noteViewModel: NoteViewModel by viewModels()
-    private val mAdapter by lazy { NoteAdapter(arrayListOf(), this) }
     private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        initLayoutManager()
         initViewModel()
         btnFab()
 
@@ -35,8 +31,9 @@ class MainActivity : AppCompatActivity() , NoteAdapter.OnItemClickListener {
     }
 
     private fun initViewModel() {
+        binding?.rvItem?.layoutManager = LinearLayoutManager(this)
         noteViewModel.allNotes.observe(this) {
-            mAdapter.setNotes(it)
+            binding?.rvItem?.adapter = NoteAdapter(it, this)
             if (it.isEmpty()) {
                 binding?.ivNoData?.visibility = View.VISIBLE
             } else {
@@ -45,10 +42,6 @@ class MainActivity : AppCompatActivity() , NoteAdapter.OnItemClickListener {
         }
     }
 
-    private fun initLayoutManager() {
-        binding?.rvItem?.layoutManager = LinearLayoutManager(this)
-        binding?.rvItem?.adapter = mAdapter
-    }
 
     override fun onItemClick(note: Note) {
         // Open activity to edit note
